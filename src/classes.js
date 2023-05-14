@@ -25,6 +25,7 @@ export class Sprite {
         )
         this.framesElapsed++
         if (this.framesElapsed % this.framesDelay == 0) {
+            this.framesElapsed = 0
             if (this.framesCurrent < this.framesCount - 1) this.framesCurrent++
             else this.framesCurrent = 0
         }
@@ -32,7 +33,7 @@ export class Sprite {
 }
 
 export class Player extends Sprite {
-    constructor(width, height, position, offset, health, orientation, imageSrc, framesCount = 1, framesDelay, scale) {
+    constructor(width, height, position, offset, health, orientation, imageSrc, framesCount = 1, framesDelay, scale, sprites) {
         super(position, offset, imageSrc, framesCount, framesDelay, scale)
         this.width = width
         this.height = height
@@ -49,6 +50,12 @@ export class Player extends Sprite {
         }
         this.attacks = {}
         this.currentAttack
+        this.sprites = sprites
+
+        for (const key in this.sprites) {
+            this.sprites[key].image = new Image()
+            this.sprites[key].image.src = this.sprites[key].imageSrc
+        }
     }
 
     draw(ctx) {
@@ -63,6 +70,7 @@ export class Player extends Sprite {
             } else {
                 this.velocity.y = 0
                 this.state['fall'] = true
+                this.image = this.sprites.fall.image
                 this.state['jump'] = false
             }
         }
@@ -71,7 +79,10 @@ export class Player extends Sprite {
             ctx.fillRect(this.position.x - this.currentAttack.offset.x, this.position.y - this.currentAttack.offset.y, this.currentAttack.width, this.currentAttack.height)
             this.state['attack'] = false
         }
-        if (Object.values(this.state).slice(0, -1).every(s => !s)) this.state['idle'] = true
+        if (Object.values(this.state).slice(0, -1).every(s => !s)) {
+            this.state['idle'] = true
+            this.image = this.sprites.idle.image
+        }
     }
 
     drawAttack(name) {
@@ -92,6 +103,7 @@ export class Player extends Sprite {
     }
 
     jump() {
+        this.image = this.sprites.jump.image
         if (this.state['onGround'] == true) {
             this.state['jump'] = true
             this.state['idle'] = false

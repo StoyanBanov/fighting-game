@@ -8,10 +8,28 @@ ctx.canvas.height = 576
 
 const background = new Sprite({ x: 0, y: 0 }, { x: 0, y: 0 }, '/img/background.png')
 
-const player1 = new Player(50, 100, { x: 0, y: 0 }, { x: 0, y: 100 }, 100, 'right', '/img/player1/idle.png', 5, 7)
+const player1 = new Player(50, 100, { x: 0, y: 0 }, { x: 0, y: 100 }, 100, 'right', '/img/player1/idle.png', 5, 2, 1, {
+    'idle': {
+        imageSrc: '/img/player1/idle.png',
+        framesCount: 5
+    },
+    'jump': {
+        imageSrc: '/img/player1/jump.png',
+        framesCount: 5
+    },
+    'fall': {
+        imageSrc: '/img/player1/fall.png',
+        framesCount: 5
+    }
+})
 player1.attacks['highKick'] = new Attack({ x: -60, y: 0 }, 60, 80, 20)
 
-const player2 = new Player(50, 100, { x: ctx.canvas.width - 50, y: 0 }, { x: 0, y: 100 }, 100, 'left', '/img/player2/idle.png', 5, 7)
+const player2 = new Player(50, 100, { x: ctx.canvas.width - 50, y: 0 }, { x: 0, y: 100 }, 100, 'left', '/img/player2/idle.png', 5, 1, 1, {
+    'idle': {
+        imageSrc: '/img/player2/idle.png',
+        framesCount: 5
+    }
+})
 player2.attacks['highKick'] = new Attack({ x: 70, y: 0 }, 60, 80, 20)
 
 const intervalId = setInterval(() => window.requestAnimationFrame(() => {
@@ -19,7 +37,7 @@ const intervalId = setInterval(() => window.requestAnimationFrame(() => {
     background.drawSprite(ctx)
     player1.draw(ctx)
     player2.draw(ctx)
-}), 16)
+}), 34)
 
 const keyAssocArr = {}
 
