@@ -1,20 +1,22 @@
-import { Attack, Player } from './classes.js'
+import { Attack, Player, Sprite } from './classes.js'
+import { attack } from './util.js'
 
 const ctx = document.querySelector('canvas').getContext('2d')
 
 ctx.canvas.width = 1024
 ctx.canvas.height = 576
 
-const player1 = new Player(50, 100, { x: 0, y: 0 })
-player1.attacks['highKick'] = new Attack({ x: -60, y: 0 }, 60, 80)
+const background = new Sprite({ x: 0, y: 0 }, { x: 0, y: 0 }, '/img/background.png')
 
-const player2 = new Player(50, 100, { x: ctx.canvas.width - 50, y: 0 })
-player2.attacks['highKick'] = new Attack({ x: 70, y: 0 }, 60, 80)
+const player1 = new Player(50, 100, { x: 0, y: 0 }, { x: 0, y: 100 }, 100, 'right', '/img/player1/idle.png', 5, 7)
+player1.attacks['highKick'] = new Attack({ x: -60, y: 0 }, 60, 80, 20)
+
+const player2 = new Player(50, 100, { x: ctx.canvas.width - 50, y: 0 }, { x: 0, y: 100 }, 100, 'left', '/img/player2/idle.png', 5, 7)
+player2.attacks['highKick'] = new Attack({ x: 70, y: 0 }, 60, 80, 20)
 
 const intervalId = setInterval(() => window.requestAnimationFrame(() => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.fillStyle = 'black'
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+    background.drawSprite(ctx)
     player1.draw(ctx)
     player2.draw(ctx)
 }), 16)
@@ -38,6 +40,7 @@ function handleKeyEvents(e) {
     }
     if (keyAssocArr[' ']) {
         player1.drawAttack('highKick')
+        attack(player1, player2)
     }
 
     if (keyAssocArr['ArrowRight']) {
@@ -52,5 +55,6 @@ function handleKeyEvents(e) {
     }
     if (keyAssocArr['0']) {
         player2.drawAttack('highKick')
+        attack(player2, player1)
     }
 }
