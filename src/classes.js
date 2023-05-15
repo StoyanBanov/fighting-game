@@ -25,7 +25,6 @@ export class Sprite {
         )
         this.framesElapsed++
         if (this.framesElapsed % this.framesDelay == 0) {
-            this.framesElapsed = 0
             if (this.framesCurrent < this.framesCount - 1) this.framesCurrent++
             else this.framesCurrent = 0
         }
@@ -65,9 +64,10 @@ export class Player extends Sprite {
 
         if (this.state['fall']) this.fall(ctx)
         else if (this.state['jump']) {
-            if (this.position.y + this.height > ctx.canvas.height - this.offset.y - 170) {
-                this.velocity.y += 1
+            if (this.velocity.y <= 0) {
+                this.velocity.y += 3
             } else {
+                this.framesCurrent = 0
                 this.velocity.y = 0
                 this.state['fall'] = true
                 this.image = this.sprites.fall.image
@@ -92,6 +92,8 @@ export class Player extends Sprite {
     }
 
     move(direction) {
+        if (this.state['jump']) this.image = this.sprites.jump.image
+        else this.image = this.sprites.run.image
         this.state['move'] = true
         this.state['idle'] = false
         this.velocity.x = direction == 'right' ? 10 : -10
@@ -103,22 +105,26 @@ export class Player extends Sprite {
     }
 
     jump() {
+        this.framesCurrent = 0
         this.image = this.sprites.jump.image
         if (this.state['onGround'] == true) {
             this.state['jump'] = true
             this.state['idle'] = false
             this.state['fall'] = false
             this.state['onGround'] = false
-            this.velocity.y = -25
+            this.velocity.y = -27
         }
     }
 
     fall(ctx) {
         if (this.position.y + this.height + this.velocity.y < ctx.canvas.height - this.offset.y) {
-            this.velocity.y += 4
+            this.velocity.y += 3
         } else {
             this.state['onGround'] = true
             this.state['fall'] = false
+            if (this.state['move']) {
+                this.image = this.sprites.run.image
+            }
             this.velocity.y = 0
             this.position.y = ctx.canvas.height - this.height - this.offset.y
         }

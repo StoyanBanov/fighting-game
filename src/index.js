@@ -8,7 +8,7 @@ ctx.canvas.height = 576
 
 const background = new Sprite({ x: 0, y: 0 }, { x: 0, y: 0 }, '../img/background.png')
 
-const player1 = new Player(50, 100, { x: 0, y: 0 }, { x: 0, y: 100 }, 100, 'right', '../img/player1/idle.png', 5, 2, 1, {
+const player1 = new Player(50, 100, { x: 0, y: 0 }, { x: 0, y: 100 }, 100, 'right', '../img/player1/idle.png', 5, 3, 1, {
     'idle': {
         imageSrc: '../img/player1/idle.png',
         framesCount: 5
@@ -20,13 +20,29 @@ const player1 = new Player(50, 100, { x: 0, y: 0 }, { x: 0, y: 100 }, 100, 'righ
     'fall': {
         imageSrc: '../img/player1/fall.png',
         framesCount: 5
+    },
+    'run': {
+        imageSrc: '../img/player1/run.png',
+        framesCount: 5
     }
 })
 player1.attacks['highKick'] = new Attack({ x: -60, y: 0 }, 60, 80, 20)
 
-const player2 = new Player(50, 100, { x: ctx.canvas.width - 50, y: 0 }, { x: 0, y: 100 }, 100, 'left', '../img/player2/idle.png', 5, 1, 1, {
+const player2 = new Player(50, 100, { x: ctx.canvas.width - 50, y: 0 }, { x: 0, y: 100 }, 100, 'left', '../img/player2/idle.png', 5, 3, 1, {
     'idle': {
         imageSrc: '../img/player2/idle.png',
+        framesCount: 5
+    },
+    'jump': {
+        imageSrc: '../img/player2/jump.png',
+        framesCount: 5
+    },
+    'fall': {
+        imageSrc: '../img/player2/fall.png',
+        framesCount: 5
+    },
+    'run': {
+        imageSrc: '../img/player2/run.png',
         framesCount: 5
     }
 })
