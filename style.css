@@ -1,3 +1,94 @@
 * {
     box-sizing: border-box;
 }
+
+.container {
+    position: relative;
+    display: inline-block;
+}
+
+.navigation {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+}
+
+.right,
+.left {
+    position: relative;
+    height: 30px;
+    width: 100%;
+}
+
+.left {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.leftHealthBar,
+.rightHealthBar {
+    height: 30px;
+    background: white;
+}
+
+.leftHealthBar {
+    width: 100%;
+}
+
+.leftHelperBar,
+.rightHelperBar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: green;
+}
+
+.leftHelperBar {
+    width: 100%;
+}
+
+.rightHelperBar {
+    left: 0;
+}
+
+.label {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.label-left {
+    left: 0;
+}
+
+.label-right {
+    right: 0;
+}
+
+
+.timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    width: 70px;
+    height: 70px;
+    border-radius: 20%;
+    flex-shrink: 0;
+    color: aliceblue;
+}
+
+.result {
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+}

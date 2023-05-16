@@ -1,3 +1,5 @@
+import { attack } from "./util.js"
+
 export class Sprite {
     constructor(position, offset, imageSrc, framesCount = 1, framesDelay = 1, scale = 1) {
         this.position = position
@@ -18,7 +20,7 @@ export class Sprite {
             0,
             this.image.width / this.framesCount,
             this.image.height,
-            this.position.x,
+            this.position.x - this.offset.x,
             this.position.y,
             this.image.width / this.framesCount * this.scale,
             this.image.height * this.scale
@@ -32,7 +34,7 @@ export class Sprite {
 }
 
 export class Player extends Sprite {
-    constructor(width, height, position, offset, health, orientation, imageSrc, framesCount = 1, framesDelay, scale, sprites) {
+    constructor(width, height, position, offset, health, orientation, imageSrc, framesCount = 1, framesDelay, scale, sprites, healthBar) {
         super(position, offset, imageSrc, framesCount, framesDelay, scale)
         this.width = width
         this.height = height
@@ -50,6 +52,8 @@ export class Player extends Sprite {
         this.attacks = {}
         this.currentAttack
         this.sprites = sprites
+        this.enemy
+        this.healthBar = healthBar
 
         for (const key in this.sprites) {
             this.sprites[key].image = new Image()
@@ -61,39 +65,61 @@ export class Player extends Sprite {
         this.drawSprite(ctx)
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
+        if (this.state['attack']) {
+            ctx.fillStyle = 'red'
+            ctx.fillRect(this.position.x - this.currentAttack.offset.x, this.position.y - this.currentAttack.offset.y, this.currentAttack.width, this.currentAttack.height)
+            if (this.framesCurrent == 3 && this.framesElapsed % this.framesDelay == 0) attack(this, this.enemy)
+            if (this.framesCurrent == 4) {
+                this.state['attack'] = false
+                if (this.state.move) this.image = this.sprites.run.image
+                if (this.state.jump) this.image = this.sprites.jump.image
+                if (this.state.fall) this.image = this.sprites.fall.image
+            }
+        }
 
-        if (this.state['fall']) this.fall(ctx)
-        else if (this.state['jump']) {
+        if (this.position.y + this.height < ctx.canvas.height - this.offset.y) {
+            this.state['idle'] = false
+            if (!this.state['jump']) {
+                this.state['fall'] = true
+                if (!this.state['attack'])
+                    this.image = this.sprites.fall.image
+                this.fall(ctx)
+            }
+        } else {
+            this.state['onGround'] = true
+            this.state['fall'] = false
+            if (this.state['move'] && !this.state.attack) {
+                this.image = this.sprites.run.image
+            }
+            this.velocity.y = 0
+            this.position.y = ctx.canvas.height - this.height - this.offset.y
+        }
+        if (this.state['jump'] && !this.state.fall) {
+            this.state['idle'] = false
             if (this.velocity.y <= 0) {
                 this.velocity.y += 3
             } else {
-                this.framesCurrent = 0
-                this.velocity.y = 0
-                this.state['fall'] = true
-                this.image = this.sprites.fall.image
                 this.state['jump'] = false
             }
         }
-        if (this.state['attack']) {
-            ctx.fillStyle = 'green'
-            ctx.fillRect(this.position.x - this.currentAttack.offset.x, this.position.y - this.currentAttack.offset.y, this.currentAttack.width, this.currentAttack.height)
-            this.state['attack'] = false
-        }
         if (Object.values(this.state).slice(0, -1).every(s => !s)) {
-            this.state['idle'] = true
             this.image = this.sprites.idle.image
         }
     }
 
-    drawAttack(name) {
+    drawAttack(name, enemy) {
         this.state['attack'] = true
         this.state['idle'] = false
         this.currentAttack = this.attacks[name]
+        this.enemy = enemy
+        this.framesCurrent = 0
+        this.image = this.sprites[name].image
     }
 
     move(direction) {
-        if (this.state['jump']) this.image = this.sprites.jump.image
-        else this.image = this.sprites.run.image
+        if (!this.state['jump'] && !this.state['attack']) {
+            this.image = this.sprites.run.image
+        }
         this.state['move'] = true
         this.state['idle'] = false
         this.velocity.x = direction == 'right' ? 10 : -10
@@ -117,16 +143,8 @@ export class Player extends Sprite {
     }
 
     fall(ctx) {
-        if (this.position.y + this.height + this.velocity.y < ctx.canvas.height - this.offset.y) {
+        if (this.position.y + this.height + this.velocity.y <= ctx.canvas.height - this.offset.y) {
             this.velocity.y += 3
-        } else {
-            this.state['onGround'] = true
-            this.state['fall'] = false
-            if (this.state['move']) {
-                this.image = this.sprites.run.image
-            }
-            this.velocity.y = 0
-            this.position.y = ctx.canvas.height - this.height - this.offset.y
         }
     }
 }
