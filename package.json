@@ -1,0 +1,23 @@
+{
+  "name": "figthting_game",
+  "version": "1.0.0",
+  "description": "Try the game here: https://stoyan-fighting-game.netlify.app/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StoyanBanov/fighting-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StoyanBanov/fighting-game/issues"
+  },
+  "homepage": "https://github.com/StoyanBanov/fighting-game#readme",
+  "dependencies": {
+    "lit-html": "^2.7.4"
+  }
+}

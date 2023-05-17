@@ -1,5 +1,3 @@
-const resultDiv = document.querySelector('.result');
-
 export function attack(attacker, target) {
     const attack = attacker.currentAttack
     if (attacker.position.x - attack.offset.x + (attacker.orientation == 'right' ? attack.width : 0) <= target.position.x + target.width &&
@@ -18,6 +16,7 @@ export function attack(attacker, target) {
 }
 
 export function endGame(player1, player2) {
+    const resultDiv = document.querySelector('.result');
     resultDiv.style.display = 'flex'
     if (player1.health != 0 && player2.health != 0) resultDiv.children[0].textContent = 'Draw'
     else if (player1.health > player2.health) resultDiv.children[0].textContent = 'Player1 wins'

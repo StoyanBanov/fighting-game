@@ -66,8 +66,8 @@ export class Player extends Sprite {
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
         if (this.state['attack']) {
-            ctx.fillStyle = 'red'
-            ctx.fillRect(this.position.x - this.currentAttack.offset.x, this.position.y - this.currentAttack.offset.y, this.currentAttack.width, this.currentAttack.height)
+            //ctx.fillStyle = 'red'
+            //ctx.fillRect(this.position.x - this.currentAttack.offset.x, this.position.y - this.currentAttack.offset.y, this.currentAttack.width, this.currentAttack.height)
             if (this.framesCurrent == 3 && this.framesElapsed % this.framesDelay == 0) attack(this, this.enemy)
             if (this.framesCurrent == 4) {
                 this.state['attack'] = false
@@ -122,7 +122,7 @@ export class Player extends Sprite {
         }
         this.state['move'] = true
         this.state['idle'] = false
-        this.velocity.x = direction == 'right' ? 10 : -10
+        this.velocity.x = direction == 'right' ? 12 : -12
     }
 
     stop() {
