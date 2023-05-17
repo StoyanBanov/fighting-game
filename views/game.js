@@ -1,8 +1,6 @@
-import { html, render } from "lit-html";
-import { startGame } from "../src/game.js";
-import { homeView } from "./menu.js";
+import { menuView } from "./menu.js"
 
-export const gameView = () => html`<div class="container">
+export const gameView = () => `<div class="container">
         <div class="navigation">
             <div class="left">
                 <div class="leftHealthBar"></div>
@@ -18,12 +16,12 @@ export const gameView = () => html`<div class="container">
         </div>
         <div class="result">
             <h1></h1>
-            <button @click=${startGame}>Play again</button>
-            <button @click=${onMenuClick}>Menu</button>
+            <button onclick="startGame(event)">Play again</button>
+            <button onclick="onMenuClick(event)">Menu</button>
         </div>
         <canvas></canvas>
     </div>`
 
-function onMenuClick(e) {
-    render(homeView(), document.body)
+window.onMenuClick = (e) => {
+    document.body.innerHTML = menuView()
 }

@@ -1,7 +1,9 @@
 import { Attack, Player, Sprite } from './classes.js'
 import { endGame } from './util.js';
 
-export function startGame() {
+window.startGame = startGame
+
+export function startGame(e) {
     const resultDiv = document.querySelector('.result');
     const leftBar = document.getElementById('leftBar')
     const rightBar = document.getElementById('rightBar')

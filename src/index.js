@@ -1,4 +1,3 @@
-import { render } from 'lit-html';
-import { homeView } from '../views/menu.js';
+import { menuView } from '../views/menu.js';
 
-render(homeView(), document.body)
+document.body.innerHTML = menuView()

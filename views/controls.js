@@ -1,11 +1,16 @@
-import { html } from "lit-html";
+import { menuView } from "./menu.js"
 
-export const controlsView = () => html`<div>
-    <p>Movement</p>
-    <p>move left: </p><p>d</p>
-    <p>move right: </p><p>a</p>
-    <p>jump: </p><p>w</p>
-    <p>
-    <p>Attacks</p><p>d</p>
-    <p>high kick: </p><p>space</p>
+export const controlsView = () => `<div>
+    <button onclick="onBackClick(event)"><-</button>
+    <p><strong>Movement</strong></p>
+    <p>move left: d</p>
+    <p>move right: a</p>
+    <p>jump: w</p>
+    <br>
+    <p><strong>Attacks</strong></p>
+    <p>high kick: space</p>
 </div>`
+
+window.onBackClick = e => {
+    document.body.innerHTML = menuView()
+}
