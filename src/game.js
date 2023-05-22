@@ -1,3 +1,4 @@
+import { menuView } from '../views/menu.js';
 import { Attack, Player, Sprite } from './classes.js'
 import { endGame } from './util.js';
 
@@ -98,6 +99,12 @@ export function startGame(e) {
     addEventListener('keyup', handleKeyEvents)
 
     function handleKeyEvents(e) {
+        if (e.key == 'Escape' && e.type == 'keyup') {
+            document.querySelector('section').innerHTML = menuView()
+            return
+        }
+
+
         keyAssocArr[e.key] = e.type == 'keydown'
         if (keyAssocArr['d']) {
             player1.move('right')

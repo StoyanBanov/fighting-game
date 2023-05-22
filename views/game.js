@@ -23,5 +23,5 @@ export const gameView = () => `<div class="container">
     </div>`
 
 window.onMenuClick = (e) => {
-    document.body.innerHTML = menuView()
+    document.querySelector('section').innerHTML = menuView()
 }

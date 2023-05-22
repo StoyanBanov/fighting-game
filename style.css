@@ -2,6 +2,20 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section {
+    width: 1024px;
+    height: 576px;
+    margin: 0;
+    background-color: rgb(255, 186, 95);
+    box-shadow: 0px 4px 10px 0px;
+}
+
 .container {
     position: relative;
     display: inline-block;
@@ -91,4 +105,76 @@
     right: 0;
     left: 0;
     flex-direction: column;
+}
+
+
+
+
+.controlsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.controlsContainer p {
+    margin: 0
+}
+
+.controlsBox {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+
+.menuContainer {
+    padding-top: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuContainer a {
+    font-size: 30px;
+    text-decoration: none;
+    color: rgb(201, 154, 53);
+    background-color: rgb(114, 100, 100);
+    border: 3px solid rgb(116, 28, 28);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+}
+
+.menuContainer a:hover {
+    box-shadow: 0px 3px 3px 0px inset #000000;
+    font-size: 28px;
+    padding-top: 8px;
+    text-decoration: none;
+    color: rgb(143, 110, 39);
+    background-color: rgb(68, 60, 60);
+}
+
+
+
+
+.returnButton {
+    height: 50px;
+    display: inline-block;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.returnArrow {
+    fill: rgb(180, 141, 55);
+}
+
+.returnArrowHover {
+    fill: rgb(143, 110, 39);
 }

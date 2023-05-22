@@ -1,3 +1,3 @@
 import { menuView } from '../views/menu.js';
 
-document.body.innerHTML = menuView()
+document.body.querySelector('section').innerHTML = menuView()
