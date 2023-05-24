@@ -1,5 +1,6 @@
 import { menuView } from '../views/menu.js';
 import { Attack, Player, Sprite } from './classes.js'
+import { settingsVariables } from './settings.js';
 import { endGame } from './util.js';
 
 window.startGame = startGame
@@ -83,7 +84,7 @@ export function startGame(e) {
     }), 34)
 
     const timer = document.querySelector('.timer')
-    let initialTime = 10
+    let initialTime = settingsVariables.timerLimitSec
     const timerIntervalId = setInterval(() => window.requestAnimationFrame(() => {
         if (initialTime == 0) {
             clearInterval(timerIntervalId)

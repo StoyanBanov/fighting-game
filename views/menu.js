@@ -1,6 +1,7 @@
 import { startGame } from "../src/game.js";
 import { controlsView } from "./controls.js";
 import { gameView } from "./game.js";
+import { settingsView } from "./settings.js";
 
 export const menuView = () =>
     `<div class="menuContainer" onclick="onPlayClick(event)">
@@ -9,12 +10,16 @@ export const menuView = () =>
         <a href="javascript:void(0)">Settings</a>
     </div>`
 
+const section = document.querySelector('section')
+
 window.onPlayClick = (e) => {
     if (e.target.tagName != 'A') return
     if (e.target.textContent == 'Play') {
-        document.querySelector('section').innerHTML = gameView()
+        section.innerHTML = gameView()
         startGame()
     } else if (e.target.textContent == 'Controls') {
-        document.querySelector('section').innerHTML = controlsView()
+        section.innerHTML = controlsView()
+    } else if (e.target.textContent == 'Settings') {
+        section.innerHTML = settingsView()
     }
 }

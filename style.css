@@ -178,3 +178,10 @@ section {
 .returnArrowHover {
     fill: rgb(143, 110, 39);
 }
+
+
+
+
+#timeLimitIn {
+    width: 60px;
+}
