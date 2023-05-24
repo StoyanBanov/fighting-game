@@ -101,6 +101,8 @@ export function startGame(e) {
 
     function handleKeyEvents(e) {
         if (e.key == 'Escape' && e.type == 'keyup') {
+            clearInterval(timerIntervalId)
+            clearInterval(drawingIntervalId)
             document.querySelector('section').innerHTML = menuView()
             return
         }
