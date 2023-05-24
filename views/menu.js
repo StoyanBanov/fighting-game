@@ -11,6 +11,7 @@ export const menuView = () =>
     </div>`
 
 const section = document.querySelector('section')
+document.getElementById("backgroundTheme").volume = 0.7
 
 window.onPlayClick = (e) => {
     if (e.target.tagName != 'A') return
