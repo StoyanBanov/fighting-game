@@ -103,6 +103,7 @@ export function startGame(e) {
         if (e.key == 'Escape' && e.type == 'keyup') {
             clearInterval(timerIntervalId)
             clearInterval(drawingIntervalId)
+            document.getElementById('backgroundTheme').pause()
             document.querySelector('section').innerHTML = menuView()
             return
         }

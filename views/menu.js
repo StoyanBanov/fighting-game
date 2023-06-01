@@ -16,6 +16,7 @@ document.getElementById("backgroundTheme").volume = 0.7
 window.onPlayClick = (e) => {
     if (e.target.tagName != 'A') return
     if (e.target.textContent == 'Play') {
+        document.getElementById('backgroundTheme').play()
         section.innerHTML = gameView()
         startGame()
     } else if (e.target.textContent == 'Controls') {
