@@ -1,6 +1,9 @@
 import { menuView } from "./menu.js"
 
-export const gameView = () => `<div class="container">
+export const gameView = () => {
+    document.querySelector('.soundSettingContainer').style.display = 'block'
+
+    return `<div class="container">
         <div class="navigation">
             <div class="left">
                 <div class="leftHealthBar"></div>
@@ -21,7 +24,9 @@ export const gameView = () => `<div class="container">
         </div>
         <canvas></canvas>
     </div>`
+}
 
 window.onMenuClick = (e) => {
+    document.getElementById('backgroundTheme').pause()
     document.querySelector('section').innerHTML = menuView()
 }

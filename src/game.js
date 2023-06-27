@@ -10,6 +10,8 @@ export function startGame(e) {
     const leftBar = document.getElementById('leftBar')
     const rightBar = document.getElementById('rightBar')
 
+    document.getElementById("backgroundTheme").load()
+
     resultDiv.style.display = 'none'
     leftBar.style.width = '100%'
     rightBar.style.width = '100%'
@@ -103,7 +105,6 @@ export function startGame(e) {
         if (e.key == 'Escape' && e.type == 'keyup') {
             clearInterval(timerIntervalId)
             clearInterval(drawingIntervalId)
-            document.getElementById('backgroundTheme').pause()
             document.querySelector('section').innerHTML = menuView()
             return
         }
