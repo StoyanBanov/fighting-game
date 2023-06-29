@@ -33,6 +33,8 @@ export class Sprite {
     }
 }
 
+
+//TODO refactor class Player
 export class Player extends Sprite {
     constructor(width, height, position, offset, health, orientation, imageSrc, framesCount = 1, framesDelay, scale, sprites, healthBar) {
         super(position, offset, imageSrc, framesCount, framesDelay, scale)

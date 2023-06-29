@@ -1,3 +1,5 @@
+
+//TODO debug
 export function attack(attacker, target) {
     const attack = attacker.currentAttack
     if (attacker.position.x - attack.offset.x <= target.position.x + target.width &&
