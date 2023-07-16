@@ -1,4 +1,5 @@
 import { menuView } from '../views/menu.js';
+import { sounds } from '../views/settings.js';
 import { Attack, Player, Sprite } from './classes.js'
 import { settingsVariables } from './settings.js';
 import { endGame } from './util.js';
@@ -10,7 +11,8 @@ export function startGame(e) {
     const leftBar = document.getElementById('leftBar')
     const rightBar = document.getElementById('rightBar')
 
-    document.getElementById("backgroundTheme").load()
+    if (sounds.music)
+        document.getElementById("backgroundTheme").load()
 
     resultDiv.style.display = 'none'
     leftBar.style.width = '100%'
@@ -24,54 +26,115 @@ export function startGame(e) {
 
     const background = new Sprite({ x: 0, y: 0 }, { x: 0, y: 0 }, '../img/background.png')
 
-    const player1 = new Player(40, 100, { x: 0, y: 0 }, { x: 0, y: 100 }, 100, 'right', '../img/player1/idle.png', 5, 3, 1, {
-        'idle': {
-            imageSrc: '../img/player1/idle.png',
-            framesCount: 5
-        },
-        'jump': {
-            imageSrc: '../img/player1/jump.png',
-            framesCount: 5
-        },
-        'fall': {
-            imageSrc: '../img/player1/fall.png',
-            framesCount: 5
-        },
-        'run': {
-            imageSrc: '../img/player1/run.png',
-            framesCount: 5
-        },
-        'kick': {
-            imageSrc: '../img/player1/kick.png',
-            framesCount: 5
-        }
-    }, document.getElementById('leftBar'))
-    player1.attacks['kick'] = new Attack({ x: -60, y: 0 }, 25, 25, 20)
+    const player1 = new Player({
+        width: 50, height: 100, position: { x: 0, y: 376 }, offset: { x: 0, y: 0 }, health: 100, orientation: 'right', imageSrc: '../img/player1/idleR.png',
+        sprites: {
+            right: {
+                'idle': {
+                    imageSrc: '../img/player1/idleR.png',
+                    framesCount: 5
+                },
+                'jump': {
+                    imageSrc: '../img/player1/jumpR.png',
+                    framesCount: 5
+                },
+                'fall': {
+                    imageSrc: '../img/player1/fallR.png',
+                    framesCount: 5
+                },
+                'run': {
+                    imageSrc: '../img/player1/runR.png',
+                    framesCount: 5
+                },
+                'kick': {
+                    imageSrc: '../img/player1/kickR.png',
+                    framesCount: 5
+                }
+            },
+            left: {
+                'idle': {
+                    imageSrc: '../img/player1/idleL.png',
+                    framesCount: 5
+                },
+                'jump': {
+                    imageSrc: '../img/player1/jumpL.png',
+                    framesCount: 5
+                },
+                'fall': {
+                    imageSrc: '../img/player1/fallL.png',
+                    framesCount: 5
+                },
+                'run': {
+                    imageSrc: '../img/player1/runL.png',
+                    framesCount: 5
+                },
+                'kick': {
+                    imageSrc: '../img/player1/kickL.png',
+                    framesCount: 5,
+                    offset: { x: -50, y: 0 }
+                }
+            }
+        }, healthBar: document.getElementById('leftBar'), framesCount: 5
+    })
+    player1.attacks.right.kick = new Attack({ x: 60, y: 0 }, 25, 25, 20)
+    player1.attacks.left.kick = new Attack({ x: -35, y: 0 }, 25, 25, 20)
 
-    const player2 = new Player(40, 100, { x: ctx.canvas.width - 50, y: 0 }, { x: 50, y: 100 }, 100, 'left', '../img/player2/idle.png', 5, 3, 1, {
-        'idle': {
-            imageSrc: '../img/player2/idle.png',
-            framesCount: 5
-        },
-        'jump': {
-            imageSrc: '../img/player2/jump.png',
-            framesCount: 5
-        },
-        'fall': {
-            imageSrc: '../img/player2/fall.png',
-            framesCount: 5
-        },
-        'run': {
-            imageSrc: '../img/player2/run.png',
-            framesCount: 5
-        },
-        'kick': {
-            imageSrc: '../img/player2/kick.png',
-            framesCount: 5
-        }
-    }, document.getElementById('rightBar'))
-    player2.attacks['kick'] = new Attack({ x: 35, y: 0 }, 25, 25, 20)
+    const player2 = new Player({
+        width: 50, height: 100, position: { x: ctx.canvas.width - 50, y: 376 }, offset: { x: 0, y: 0 }, health: 100, orientation: 'left', imageSrc: '../img/player2/idleL.png',
+        sprites: {
+            left: {
+                'idle': {
+                    imageSrc: '../img/player2/idleL.png',
+                    framesCount: 5
+                },
+                'jump': {
+                    imageSrc: '../img/player2/jumpL.png',
+                    framesCount: 5
+                },
+                'fall': {
+                    imageSrc: '../img/player2/fallL.png',
+                    framesCount: 5
+                },
+                'run': {
+                    imageSrc: '../img/player2/runL.png',
+                    framesCount: 5
+                },
+                'kick': {
+                    imageSrc: '../img/player2/kickL.png',
+                    framesCount: 5,
+                    offset: { x: -50, y: 0 }
+                }
+            },
+            right: {
+                'idle': {
+                    imageSrc: '../img/player2/idleR.png',
+                    framesCount: 5
+                },
+                'jump': {
+                    imageSrc: '../img/player2/jumpR.png',
+                    framesCount: 5
+                },
+                'fall': {
+                    imageSrc: '../img/player2/fallR.png',
+                    framesCount: 5
+                },
+                'run': {
+                    imageSrc: '../img/player2/runR.png',
+                    framesCount: 5
+                },
+                'kick': {
+                    imageSrc: '../img/player2/kickR.png',
+                    framesCount: 5
+                }
+            }
 
+        }, healthBar: document.getElementById('rightBar'), framesCount: 5
+    })
+    player2.attacks.left.kick = new Attack({ x: -35, y: 0 }, 25, 25, 20)
+    player2.attacks.right.kick = new Attack({ x: 60, y: 0 }, 25, 25, 20)
+
+    player1.enemy = player2
+    player2.enemy = player1
 
     const drawingIntervalId = setInterval(() => window.requestAnimationFrame(() => {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -83,7 +146,7 @@ export function startGame(e) {
             clearInterval(drawingIntervalId)
             endGame(player1, player2)
         }
-    }), 34)
+    }), 70)
 
     const timer = document.querySelector('.timer')
     let initialTime = settingsVariables.timerLimitSec
@@ -109,7 +172,6 @@ export function startGame(e) {
             return
         }
 
-
         keyAssocArr[e.key] = e.type == 'keydown'
         if (keyAssocArr['d']) {
             player1.move('right')
@@ -118,6 +180,7 @@ export function startGame(e) {
         } else if (!keyAssocArr['a'] && !keyAssocArr['d']) {
             player1.stop()
         }
+
         if (keyAssocArr['w']) {
             player1.jump()
         }
@@ -132,6 +195,7 @@ export function startGame(e) {
         } else if (!keyAssocArr['ArrowRight'] && !keyAssocArr['ArrowLeft']) {
             player2.stop()
         }
+
         if (keyAssocArr['ArrowUp']) {
             player2.jump()
         }
