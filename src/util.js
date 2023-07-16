@@ -1,13 +1,14 @@
-
-//TODO debug
 export function attack(attacker, target) {
     const attack = attacker.currentAttack
-    if (attacker.position.x - attack.offset.x <= target.position.x + target.width &&
-        attacker.position.x - attack.offset.x >= target.position.x &&
-        (attacker.position.y - attack.offset.y + attack.height <= target.position.y + target.height &&
-            attacker.position.y - attack.offset.y + attack.height >= target.position.y ||
-            attacker.position.y - attack.offset.y <= target.position.y + target.height &&
-            attacker.position.y - attack.offset.y >= target.position.y)) {
+    const attackPosition = {
+        x: attacker.position.x + attack.offset.x,
+        y: attacker.position.y + attack.offset.y
+    }
+
+    if (attackPosition.x <= target.position.x + target.width &&
+        attackPosition.x >= target.position.x - attack.width &&
+        attackPosition.y <= target.position.y + target.height &&
+        attackPosition.y >= target.position.y - attack.height) {
         target.health -= attack.damage
         if (target.health < 0) target.health = 0
         target.healthBar.style.width = target.health + '%'

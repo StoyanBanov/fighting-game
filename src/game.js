@@ -11,8 +11,8 @@ export function startGame(e) {
     const leftBar = document.getElementById('leftBar')
     const rightBar = document.getElementById('rightBar')
 
-    //if (sounds.music)
-    //document.getElementById("backgroundTheme").load()
+    if (sounds.music)
+        document.getElementById("backgroundTheme").load()
 
     resultDiv.style.display = 'none'
     leftBar.style.width = '100%'
@@ -76,10 +76,11 @@ export function startGame(e) {
             }
         }, healthBar: document.getElementById('leftBar'), framesCount: 5
     })
-    player1.attacks['kick'] = new Attack({ x: -60, y: 0 }, 25, 25, 20)
+    player1.attacks.right.kick = new Attack({ x: 60, y: 0 }, 25, 25, 20)
+    player1.attacks.left.kick = new Attack({ x: -35, y: 0 }, 25, 25, 20)
 
     const player2 = new Player({
-        width: 50, height: 100, position: { x: -40, y: 376 }, offset: { x: 0, y: 0 }, health: 100, orientation: 'left', imageSrc: '../img/player2/idleL.png',
+        width: 50, height: 100, position: { x: ctx.canvas.width - 50, y: 376 }, offset: { x: 0, y: 0 }, health: 100, orientation: 'left', imageSrc: '../img/player2/idleL.png',
         sprites: {
             left: {
                 'idle': {
@@ -129,7 +130,8 @@ export function startGame(e) {
 
         }, healthBar: document.getElementById('rightBar'), framesCount: 5
     })
-    player2.attacks['kick'] = new Attack({ x: 35, y: 0 }, 25, 25, 20)
+    player2.attacks.left.kick = new Attack({ x: -35, y: 0 }, 25, 25, 20)
+    player2.attacks.right.kick = new Attack({ x: 60, y: 0 }, 25, 25, 20)
 
     player1.enemy = player2
     player2.enemy = player1
@@ -144,7 +146,7 @@ export function startGame(e) {
             clearInterval(drawingIntervalId)
             endGame(player1, player2)
         }
-    }), 100)
+    }), 70)
 
     const timer = document.querySelector('.timer')
     let initialTime = settingsVariables.timerLimitSec

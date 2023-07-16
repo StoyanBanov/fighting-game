@@ -47,7 +47,10 @@ export class Player extends Sprite {
             'idle': true,
             'onGround': true
         }
-        this.attacks = {}
+        this.attacks = {
+            left: {},
+            right: {}
+        }
         this.currentAttack
         this.sprites = sprites
         this.enemy
@@ -66,8 +69,8 @@ export class Player extends Sprite {
 
     draw(ctx) {
         this.drawSprite(ctx)
-        ctx.fillStyle = 'green'
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        //ctx.fillStyle = 'green'
+        //ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
@@ -96,6 +99,9 @@ export class Player extends Sprite {
             } else this.velocity.y += 10
         }
 
+        if (this.state.attack && this.framesCurrent == (this.framesCount - 1) / 2) {
+            attack(this, this.enemy)
+        }
         if (this.state.attack && this.framesCurrent == this.framesCount - 1) {
             this.state.attack = false
             this.framesCurrent = 0
@@ -109,7 +115,7 @@ export class Player extends Sprite {
     drawAttack(name, enemy) {
         this.state.attack = true
         this.state.idle = false
-        this.currentAttack = this.attacks[name]
+        this.currentAttack = this.attacks[this.orientation][name]
         this.enemy = enemy
         this.framesCurrent = 0
         this.image = this.sprites[this.orientation][name].image
@@ -147,6 +153,19 @@ export class Player extends Sprite {
     }
 }
 
+export class Attack {
+    constructor(offset, width, height, damage) {
+        this.width = width
+        this.height = height
+        this.offset = offset
+        this.damage = damage
+    }
+}
+
+
+
+
+//old
 export class PlayerOld extends Sprite {
     constructor(width, height, position, offset, health, orientation, imageSrc, framesCount = 1, framesDelay, scale, sprites, healthBar) {
         super(position, offset, imageSrc, framesCount, framesDelay, scale)
@@ -261,14 +280,5 @@ export class PlayerOld extends Sprite {
         if (this.position.y + this.height + this.velocity.y <= ctx.canvas.height - this.offset.y) {
             this.velocity.y += 3
         }
-    }
-}
-
-export class Attack {
-    constructor(offset, width, height, damage) {
-        this.width = width
-        this.height = height
-        this.offset = offset
-        this.damage = damage
     }
 }
