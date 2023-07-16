@@ -1,6 +1,10 @@
 import { settingsVariables } from "../src/settings.js";
 import { returnBtnView } from "./returnButton.js";
 
+export const sounds = {
+    music: true
+};
+
 export const settingsView = () =>
     `<div>
         ${returnBtnView()}
