@@ -82,7 +82,7 @@ export class Player extends Sprite {
                 this.state.jump = false
                 this.state.fall = true
                 if (!this.state.attack) {
-                    this.image = this.sprites[this.orientation].fall.image
+                    this.setImg('fall')
                     this.framesCurrent = 0
                 }
             } else this.velocity.y += 10
@@ -94,7 +94,7 @@ export class Player extends Sprite {
                 if (!this.state.attack) {
                     this.framesCurrent = 0
                     if (!this.state.move) this.stop()
-                    else if (this.state.move) this.image = this.sprites[this.orientation].run.image
+                    else if (this.state.move) this.setImg('run')
                 }
             } else this.velocity.y += 10
         }
@@ -105,9 +105,9 @@ export class Player extends Sprite {
         if (this.state.attack && this.framesCurrent == this.framesCount - 1) {
             this.state.attack = false
             this.framesCurrent = 0
-            if (this.state.jump) this.image = this.sprites[this.orientation].jump.image
-            else if (this.state.fall) this.image = this.sprites[this.orientation].fall.image
-            else if (this.state.move) this.image = this.sprites[this.orientation].run.image
+            if (this.state.jump) this.setImg('jump')
+            else if (this.state.fall) this.setImg('fall')
+            else if (this.state.move) this.setImg('run')
             else if (!this.state.move) this.stop()
         }
     }
@@ -118,12 +118,12 @@ export class Player extends Sprite {
         this.currentAttack = this.attacks[this.orientation][name]
         this.enemy = enemy
         this.framesCurrent = 0
-        this.image = this.sprites[this.orientation][name].image
+        this.setImg(name)
     }
 
     move(direction) {
         if (!this.state['jump'] && !this.state['attack']) {
-            this.image = this.sprites[this.orientation].run.image
+            this.setImg('run')
         }
         this.state['move'] = true
         this.state['idle'] = false
@@ -133,7 +133,7 @@ export class Player extends Sprite {
     stop() {
         this.state.move = false
         if (!this.state.jump && !this.state.attack && !this.state.fall) {
-            this.image = this.sprites[this.orientation].idle.image
+            this.setImg('idle')
         }
         this.velocity.x = 0
     }
@@ -150,6 +150,11 @@ export class Player extends Sprite {
             this.state.fall = false
             this.state.onGround = false
         }
+    }
+
+    setImg(key) {
+        this.image = this.sprites[this.orientation][key].image
+        this.framesCount = this.sprites[this.orientation][key].framesCount
     }
 }
 

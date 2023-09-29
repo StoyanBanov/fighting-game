@@ -97,7 +97,7 @@ export function startGame(e) {
                 },
                 'run': {
                     imageSrc: '../img/player2/runL.png',
-                    framesCount: 5
+                    framesCount: 4
                 },
                 'kick': {
                     imageSrc: '../img/player2/kickL.png',
@@ -120,7 +120,7 @@ export function startGame(e) {
                 },
                 'run': {
                     imageSrc: '../img/player2/runR.png',
-                    framesCount: 5
+                    framesCount: 4
                 },
                 'kick': {
                     imageSrc: '../img/player2/kickR.png',
