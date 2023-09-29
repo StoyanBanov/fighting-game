@@ -12,7 +12,8 @@ export const settingsView = () =>
             <div class="controlsBox">
                 <h2>Settings</h2>
                 <form onsubmit="onSaveSettings(event)">
-                <label>time limit: <input min="0" max="120" id="timeLimitIn" name="timerLimit" type="number" value="${settingsVariables.timerLimitSec}"/></label>
+                <label for="timeLimitIn">time limit: <input oninput="timeLimitChangeHandler(event)" type="range" step="10" min="10" max="120" id="timeLimitIn" name="timerLimit" value="${settingsVariables.timerLimitSec}"/></label>
+                <output id="timeLimitOut" for="timeLimitIn">${settingsVariables.timerLimitSec}</output>
                 <br>
                 <input type="submit" value="Save"/>
                 </form>
@@ -28,4 +29,8 @@ window.onSaveSettings = (e) => {
         return
     }
     settingsVariables.timerLimitSec = Number(formData.timerLimit)
+}
+
+window.timeLimitChangeHandler = (e) => {
+    document.getElementById('timeLimitOut').value = e.target.value
 }
