@@ -8,13 +8,13 @@ export const gameView = () => {
             <div class="left">
                 <div class="leftHealthBar"></div>
                 <div id="leftBar" class="leftHelperBar"></div>
-                <div class="label label-left">player1</div>
+                <div class="label label-left"><strong>player1</strong></div>
             </div>
             <div class="timer"></div>
             <div class="right">
                 <div class="rightHealthBar"></div>
                 <div id="rightBar" class="rightHelperBar"></div>
-                <div class="label label-right">player2</div>
+                <div class="label label-right"><strong>player2</strong></div>
             </div>
         </div>
         <div class="result">

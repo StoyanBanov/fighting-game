@@ -36,11 +36,6 @@ section {
     width: 100%;
 }
 
-.left {
-    display: flex;
-    justify-content: flex-end;
-}
-
 .leftHealthBar,
 .rightHealthBar {
     height: 30px;
@@ -69,8 +64,10 @@ section {
 }
 
 .label {
+    padding: 5px;
+    text-transform: uppercase;
     position: absolute;
-    top: 0;
+    top: 2px;
     bottom: 0;
 }
 
